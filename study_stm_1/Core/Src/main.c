@@ -48,8 +48,6 @@ DAC_HandleTypeDef hdac1;
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 
-UART_HandleTypeDef huart1;
-
 /* USER CODE BEGIN PV */
 char trans_str[64] = {0,};
 uint16_t adc_value = 0;
@@ -58,12 +56,11 @@ short end_transmit = 0;
 short k = 0;
 short n = 0;
 short times = 1;
-short all = 100;
-uint32_t falling = 0;
+uint32_t all = 0;
 int adc_array[100];
 int i = 0;
 short m = 0;
-int amplitude = 0;
+int amplitude = 2500;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -72,7 +69,6 @@ static void MX_GPIO_Init(void);
 static void MX_DAC1_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM2_Init(void);
-static void MX_USART1_UART_Init(void);
 static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 
@@ -81,87 +77,82 @@ static void MX_TIM1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if (htim->Instance == TIM2){
-		switch(end_transmit){
-			case 1:
-				if (k == 0){
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-					k = 1;
-				}
-				else {
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-					k = 0;
-				}
-				break;
-			case 2:
-				if (k == 0){
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-					k = 1;
-				}
-				else {
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-					k = 0;
-				}
-				break;
-			case 3:
-				if (k == 0){
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-					k = 1;
-				}
-				else {
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-					k = 0;
-				}
-				break;
-			case 4:
-				if (k == 0){
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-					k = 1;
-				}
-				else {
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-					k = 0;
-				}
-				break;
+	if (htim == &htim2){
+		if (all % times == 0){//прореживание в зависимости от периода сигнала, поступающего на ADC
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+			switch(end_transmit){
+				case 0:
+					break;
+				case 1:
+					if (k == 0){
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+						k = 1;
+					}
+					else {
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+						k = 0;
+					}
+					break;
+				case 2:
+					if (k == 0){
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+						k = 1;
+					}
+					else {
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+						k = 0;
+					}
+					break;
+				case 3:
+					if (k == 0){
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+						k = 1;
+					}
+					else {
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+						k = 0;
+					}
+					break;
+				case 4:
+					if (k == 0){
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+						k = 1;
+					}
+					else {
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+						k = 0;
+					}
+					break;
+			}
 		}
+		all++;
 	}
-	if (htim->Instance == TIM1){
+	if (htim == &htim1){
 		  HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
 		  HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac_value);
-		  if (all % times == 0){
-			  if (n == 0){
-				  dac_value = 2048;
-				  n = 1;
-			  }
-			  else if (n == 1 ){
-				  dac_value = 0;
-				  n = 0;
-			  }
+		  if (n == 0){
+			  dac_value = 2048;
+			  n = 1;
 		  }
-	}
-}
-
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
-	if (huart == &huart1){
-		end_transmit = 1;
+		  else if (n == 1 ){
+			  dac_value = 0;
+			  n = 0;
+		  }
 	}
 }
 /* USER CODE END 0 */
@@ -198,34 +189,26 @@ int main(void)
   MX_DAC1_Init();
   MX_ADC1_Init();
   MX_TIM2_Init();
-  MX_USART1_UART_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  //HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
-  //HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);
-  //HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+  HAL_TIM_Base_Start_IT(&htim1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-	  /*HAL_ADC_Start(&hadc1);
-	  if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK){
-		  adc_value = HAL_ADC_GetValue(&hadc1);
-	  }*/
-	  dac_value++;
+	  /*dac_value++;
 	  if (dac_value > 4000){
 		  dac_value = 0;
-	  }
+	  }*/
 	  HAL_ADC_Start(&hadc1);
 	  HAL_ADC_PollForConversion(&hadc1, 100);
 	  adc_value = HAL_ADC_GetValue(&hadc1);
 	  adc_array[i] = adc_value;
 	  i++;
-	  if (i == 100){
+	  if (i == 100){//происходит анализ массива, полученного с DAC
 		  volatile int max = 0;
 		  volatile int period;
 		  for (int j = 0; j < 99; j++ ){
@@ -244,9 +227,8 @@ int main(void)
 		  }
 		  m = 0;
 		  amplitude = max;
-		  times = period;
+		  times = //period;
 		  i = 0;
-		  HAL_Delay(1000);
 	  }
 	  //snprintf(trans_str, 63, "ADC %d\n", adc_value);
 	  //HAL_UART_Transmit_IT(&huart1, (uint8_t*)trans_str, strlen(trans_str));
@@ -301,9 +283,8 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_TIM1
-                              |RCC_PERIPHCLK_ADC12|RCC_PERIPHCLK_TIM2;
-  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_TIM1|RCC_PERIPHCLK_ADC12
+                              |RCC_PERIPHCLK_TIM2;
   PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV2;
   PeriphClkInit.Tim1ClockSelection = RCC_TIM1CLK_HCLK;
   PeriphClkInit.Tim2ClockSelection = RCC_TIM2CLK_HCLK;
@@ -438,9 +419,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 720;
+  htim1.Init.Prescaler = 35;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 65000;
+  htim1.Init.Period = 10000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -512,41 +493,6 @@ static void MX_TIM2_Init(void)
 }
 
 /**
-  * @brief USART1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART1_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART1_Init 0 */
-
-  /* USER CODE END USART1_Init 0 */
-
-  /* USER CODE BEGIN USART1_Init 1 */
-
-  /* USER CODE END USART1_Init 1 */
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 9600;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART1_Init 2 */
-
-  /* USER CODE END USART1_Init 2 */
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -560,7 +506,6 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
