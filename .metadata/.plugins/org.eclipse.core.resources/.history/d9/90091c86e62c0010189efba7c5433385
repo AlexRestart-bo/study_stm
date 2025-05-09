@@ -144,7 +144,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 					break;
 			}
 		}
-		else if (flag_const) {
+		else {
 			switch(end_transmit){
 				case 0:
 					break;
@@ -250,7 +250,7 @@ int main(void)
 			  }
 
 		  }
-		  if (m == 1 || m == 0) flag_const = 1;	//проверка того, что сигнал имеет период
+		 // if (m == 1 || m == 0) flag_const = 1;	//проверка того, что сигнал имеет период
 		  m = 0;
 		  amplitude = max;
 		  times = period;
@@ -494,7 +494,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 72;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 20000;
+  htim2.Init.Period = 50000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
