@@ -575,3 +575,465 @@ Caused by: java.nio.channels.UnresolvedAddressException
 	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
 	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:212)
 	... 21 more
+!SESSION 2025-05-17 12:03:58.617 -----------------------------------------------
+eclipse.buildId=Version 1.18.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ru_RU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-05-17 12:04:32.390
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-05-17 12:04:32.398
+!MESSAGE Log4j2 initialized with config file C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-05-17 12:05:13.738
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-05-17 12:06:18.291
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/openstlinux/updatesite1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-05-17 12:06:18.912
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/updatesite1.
+
+!ENTRY org.eclipse.core.jobs 4 2 2025-05-17 12:37:54.314
+!MESSAGE IJobChangeListener timeout detected. Further calls to IJobChangeListener may occur in random order and join(family) can return too soon. IJobChangeListener should return within 3000 ms. IJobChangeListener methods should not block. Possible deadlock.
+!STACK 0
+java.util.concurrent.TimeoutException: IJobChangeListener timeout detected. Further calls to IJobChangeListener may occur in random order and join(family) can return too soon. IJobChangeListener should return within 3000 ms. IJobChangeListener methods should not block. Possible deadlock.
+	at org.eclipse.core.internal.jobs.JobListeners.waitAndSendEvents(JobListeners.java:106)
+	at org.eclipse.core.internal.jobs.JobManager.startJob(JobManager.java:1787)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+!SUBENTRY 1 org.eclipse.core.jobs 4 2 2025-05-17 12:37:54.405
+!MESSAGE Thread that is running the IJobChangeListener: org.eclipse.cdt.internal.ui.text.CReconciler
+	at org.eclipse.swt.internal.win32.OS.PostThreadMessage(Native Method)
+	at org.eclipse.swt.widgets.Display.wakeThread(Display.java:5085)
+	at org.eclipse.swt.widgets.Synchronizer.addLast(Synchronizer.java:79)
+	at org.eclipse.swt.widgets.Synchronizer.asyncExec(Synchronizer.java:101)
+	at org.eclipse.ui.internal.UISynchronizer.asyncExec(UISynchronizer.java:112)
+	at org.eclipse.swt.widgets.Display.asyncExec(Display.java:787)
+	at org.eclipse.jface.util.Throttler.throttledExec(Throttler.java:123)
+	at org.eclipse.jface.util.Throttler.throttledExec(Throttler.java:100)
+	at org.eclipse.ui.internal.progress.ProgressManager.addJobInfo(ProgressManager.java:709)
+	at org.eclipse.ui.internal.progress.ProgressManager$1.updateFor(ProgressManager.java:500)
+	at org.eclipse.ui.internal.progress.ProgressManager$1.scheduled(ProgressManager.java:474)
+	at org.eclipse.core.internal.jobs.JobListeners.sendEvent(JobListeners.java:153)
+	at org.eclipse.core.internal.jobs.JobListeners.sendEventsAsync(JobListeners.java:140)
+	at org.eclipse.core.internal.jobs.JobListeners.waitAndSendEvents(JobListeners.java:80)
+	at org.eclipse.core.internal.jobs.JobManager.withWriteLock(JobManager.java:551)
+	at org.eclipse.core.internal.jobs.JobManager.schedule(JobManager.java:1408)
+	at org.eclipse.core.internal.jobs.InternalJob.schedule(InternalJob.java:396)
+	at org.eclipse.core.runtime.jobs.Job.schedule(Job.java:684)
+	at org.eclipse.core.internal.events.AutoBuildJob.build(AutoBuildJob.java:128)
+	at org.eclipse.core.internal.events.BuildManager.endTopLevel(BuildManager.java:783)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1602)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2465)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2476)
+	at org.eclipse.cdt.codan.internal.core.model.CodanMarkerProblemReporter.deleteProblems(CodanMarkerProblemReporter.java:117)
+	at org.eclipse.cdt.codan.internal.core.model.CodanMarkerProblemReporter.deleteProblems(CodanMarkerProblemReporter.java:277)
+	at org.eclipse.cdt.codan.internal.core.model.CodanMarkerProblemReporter.done(CodanMarkerProblemReporter.java:176)
+	at org.eclipse.cdt.codan.core.model.AbstractChecker.after(AbstractChecker.java:222)
+	at org.eclipse.cdt.codan.internal.core.CodanRunner.processResource(CodanRunner.java:106)
+	at org.eclipse.cdt.codan.internal.core.CodanRunner.runInEditor(CodanRunner.java:50)
+	at org.eclipse.cdt.codan.internal.core.CodanBuilder.processResource(CodanBuilder.java:130)
+	at org.eclipse.cdt.codan.core.cxx.internal.model.CxxCodanReconciler.reconciledAst(CxxCodanReconciler.java:40)
+	at org.eclipse.cdt.codan.internal.ui.cxx.CodanCReconciler.reconciled(CodanCReconciler.java:60)
+	at org.eclipse.cdt.internal.ui.editor.CEditor.reconciled(CEditor.java:3107)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:100)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:64)
+	at org.eclipse.cdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:89)
+	at org.eclipse.cdt.internal.ui.text.CCompositeReconcilingStrategy.reconcile(CCompositeReconcilingStrategy.java:90)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:78)
+	at org.eclipse.cdt.internal.ui.text.CReconciler.process(CReconciler.java:346)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+All thread infos: 
+"main" prio=6 Id=1 RUNNABLE
+	at org.eclipse.swt.internal.win32.OS.WaitMessage(Native Method)
+	at org.eclipse.swt.widgets.Display.sleep(Display.java:4822)
+	at org.eclipse.ui.application.WorkbenchAdvisor.eventLoopIdle(WorkbenchAdvisor.java:339)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor.eventLoopIdle(IDEWorkbenchAdvisor.java:993)
+	at org.eclipse.ui.internal.Workbench$1.eventLoopIdle(Workbench.java:474)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1156)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1042)
+	...
+
+"Reference Handler" daemon prio=10 Id=9 RUNNABLE
+	at java.base@21.0.3/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
+	at java.base@21.0.3/java.lang.ref.Reference.processPendingReferences(Reference.java:246)
+	at java.base@21.0.3/java.lang.ref.Reference$ReferenceHandler.run(Reference.java:208)
+
+"Finalizer" daemon prio=8 Id=10 WAITING on java.lang.ref.NativeReferenceQueue$Lock@747bd159
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on java.lang.ref.NativeReferenceQueue$Lock@747bd159
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at java.base@21.0.3/java.lang.ref.NativeReferenceQueue.await(NativeReferenceQueue.java:48)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:158)
+	at java.base@21.0.3/java.lang.ref.NativeReferenceQueue.remove(NativeReferenceQueue.java:89)
+	at java.base@21.0.3/java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:173)
+
+"Signal Dispatcher" daemon prio=9 Id=11 RUNNABLE
+
+"Attach Listener" daemon prio=5 Id=12 RUNNABLE
+
+"Notification Thread" daemon prio=9 Id=18 RUNNABLE
+
+"Common-Cleaner" daemon prio=8 Id=19 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@116d7df7
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@116d7df7
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1847)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.await(ReferenceQueue.java:71)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:143)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:218)
+	at java.base@21.0.3/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:140)
+	at java.base@21.0.3/java.lang.Thread.runWith(Thread.java:1596)
+	...
+
+"Active Thread: Equinox Container: 28b1f0bc-a8ae-4f08-86cc-9d38a7ed87bb" prio=5 Id=22 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@59d18cbb
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@59d18cbb
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+	at java.base@21.0.3/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@21.0.3/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	...
+
+"Framework Event Dispatcher: Equinox Container: 28b1f0bc-a8ae-4f08-86cc-9d38a7ed87bb" daemon prio=5 Id=24 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@1c48b083
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@1c48b083
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:396)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:337)
+
+"Start Level: Equinox Container: 28b1f0bc-a8ae-4f08-86cc-9d38a7ed87bb" daemon prio=5 Id=25 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@36135b4a
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@36135b4a
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:396)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:337)
+
+"SCR Component Actor" daemon prio=5 Id=26 WAITING on java.util.LinkedList@4c6b0aba
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on java.util.LinkedList@4c6b0aba
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at org.apache.felix.scr.impl.ComponentActorThread.run(ComponentActorThread.java:83)
+	at java.base@21.0.3/java.lang.Thread.runWith(Thread.java:1596)
+	at java.base@21.0.3/java.lang.Thread.run(Thread.java:1583)
+
+"EMF Reference Cleaner" daemon prio=5 Id=28 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@198ae3d8
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@198ae3d8
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.await(ReferenceQueue.java:67)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:158)
+	...
+
+"Worker-JM" prio=5 Id=30 WAITING on java.util.ArrayList@401f84c2
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on java.util.ArrayList@401f84c2
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at org.eclipse.core.internal.jobs.InternalWorker.run(InternalWorker.java:61)
+
+"Gogo shell" prio=5 Id=32 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@6cfa4e80
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@6cfa4e80
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+	...
+
+"JNA Cleaner" daemon prio=6 Id=35 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@78d0a77f
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@78d0a77f
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1847)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.await(ReferenceQueue.java:71)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:143)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:218)
+	at com.sun.jna.internal.Cleaner$CleanerThread.run(Cleaner.java:154)
+
+"Bundle File Closer" daemon prio=6 Id=37 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@360a1f9e
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@360a1f9e
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:396)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:337)
+
+"Log4j2-TF-1-Scheduled-1" daemon prio=5 Id=39 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@a8fb409
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@a8fb409
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+	at java.base@21.0.3/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@21.0.3/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	...
+
+"EventAdmin Async Event Dispatcher Thread" daemon prio=6 Id=53 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@34bf6596
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@34bf6596
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:396)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:337)
+
+"pool-3-thread-1" prio=5 Id=56 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@49a9d721
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@49a9d721
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+	...
+
+"pool-4-thread-1" prio=5 Id=57 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@2f39d765
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@2f39d765
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+	...
+
+"Java2D Disposer" daemon prio=10 Id=60 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@58e11177
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@58e11177
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.await(ReferenceQueue.java:67)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:158)
+	...
+
+"AWT-Windows" daemon prio=6 Id=64 RUNNABLE (in native)
+	at java.desktop@21.0.3/sun.awt.windows.WToolkit.eventLoop(Native Method)
+	at java.desktop@21.0.3/sun.awt.windows.WToolkit.run(WToolkit.java:360)
+	at java.base@21.0.3/java.lang.Thread.runWith(Thread.java:1596)
+	at java.base@21.0.3/java.lang.Thread.run(Thread.java:1583)
+
+"RMI TCP Accept-41337" daemon prio=5 Id=97 RUNNABLE (in native)
+	at java.base@21.0.3/sun.nio.ch.Net.accept(Native Method)
+	at java.base@21.0.3/sun.nio.ch.NioSocketImpl.accept(NioSocketImpl.java:748)
+	at java.base@21.0.3/java.net.ServerSocket.implAccept(ServerSocket.java:698)
+	at java.base@21.0.3/java.net.ServerSocket.platformImplAccept(ServerSocket.java:663)
+	at java.base@21.0.3/java.net.ServerSocket.implAccept(ServerSocket.java:639)
+	at java.base@21.0.3/java.net.ServerSocket.implAccept(ServerSocket.java:585)
+	at java.base@21.0.3/java.net.ServerSocket.accept(ServerSocket.java:543)
+	at java.rmi@21.0.3/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:424)
+	...
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@17bd5c28
+
+"RMI Reaper" prio=5 Id=98 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@102a8121
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@102a8121
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.await(ReferenceQueue.java:67)
+	at java.base@21.0.3/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:158)
+	...
+
+"RMI GC Daemon" daemon prio=2 Id=99 TIMED_WAITING on sun.rmi.transport.GC$LatencyLock@71c9febe
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on sun.rmi.transport.GC$LatencyLock@71c9febe
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.rmi@21.0.3/sun.rmi.transport.GC$Daemon.run(GC.java:127)
+	at java.base@21.0.3/java.lang.Thread.runWith(Thread.java:1596)
+	at java.base@21.0.3/java.lang.Thread.run(Thread.java:1583)
+	at java.base@21.0.3/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:186)
+
+"TimerQueue" daemon prio=5 Id=104 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5cd27753
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5cd27753
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.util.concurrent.DelayQueue.take(DelayQueue.java:242)
+	at java.desktop@21.0.3/javax.swing.TimerQueue.run(TimerQueue.java:165)
+	...
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@21f33359
+
+"AWT-Shutdown" prio=5 Id=127 WAITING on java.lang.Object@18b5d661
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on java.lang.Object@18b5d661
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at java.desktop@21.0.3/sun.awt.AWTAutoShutdown.run(AWTAutoShutdown.java:291)
+	at java.base@21.0.3/java.lang.Thread.runWith(Thread.java:1596)
+	at java.base@21.0.3/java.lang.Thread.run(Thread.java:1583)
+
+"AWT-EventQueue-0" prio=6 Id=126 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@26b7e7c7
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@26b7e7c7
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.desktop@21.0.3/java.awt.EventQueue.getNextEvent(EventQueue.java:565)
+	at java.desktop@21.0.3/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:190)
+	...
+
+"Serial Ports Filter" daemon prio=5 Id=131 TIMED_WAITING on java.util.TaskQueue@1e6671b3
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on java.util.TaskQueue@1e6671b3
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.util.TimerThread.mainLoop(Timer.java:563)
+	at java.base@21.0.3/java.util.TimerThread.run(Timer.java:516)
+
+"HttpClient-1-SelectorManager" daemon prio=5 Id=140 RUNNABLE
+	at java.base@21.0.3/sun.nio.ch.WEPoll.wait(Native Method)
+	at java.base@21.0.3/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:114)
+	at java.base@21.0.3/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:130)
+	-  locked sun.nio.ch.Util$2@51c1e5c3
+	-  locked sun.nio.ch.WEPollSelectorImpl@67713744
+	at java.base@21.0.3/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:142)
+	at platform/java.net.http@21.0.3/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1366)
+
+"Provisioning Event Dispatcher" daemon prio=5 Id=164 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@7e617db2
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@7e617db2
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:339)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:396)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:337)
+
+"org.eclipse.cdt.internal.ui.text.CReconciler" daemon prio=1 Id=178 RUNNABLE
+	at org.eclipse.cdt.codan.internal.core.CheckerInvocationContext.dispose(CheckerInvocationContext.java:69)
+	at org.eclipse.cdt.codan.internal.core.CodanRunner.processResource(CodanRunner.java:113)
+	at org.eclipse.cdt.codan.internal.core.CodanRunner.runInEditor(CodanRunner.java:50)
+	at org.eclipse.cdt.codan.internal.core.CodanBuilder.processResource(CodanBuilder.java:130)
+	at org.eclipse.cdt.codan.core.cxx.internal.model.CxxCodanReconciler.reconciledAst(CxxCodanReconciler.java:40)
+	at org.eclipse.cdt.codan.internal.ui.cxx.CodanCReconciler.reconciled(CodanCReconciler.java:60)
+	at org.eclipse.cdt.internal.ui.editor.CEditor.reconciled(CEditor.java:3107)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:100)
+	...
+
+"pool-5-thread-1" prio=5 Id=181 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@53277024
+	at java.base@21.0.3/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@53277024
+	at java.base@21.0.3/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:519)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3780)
+	at java.base@21.0.3/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3725)
+	at java.base@21.0.3/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1707)
+	at java.base@21.0.3/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@21.0.3/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+	...
+
+"Worker-21" prio=5 Id=337 RUNNABLE
+	at java.management@21.0.3/sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at java.management@21.0.3/sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:518)
+	at java.management@21.0.3/sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:506)
+	at org.eclipse.core.internal.jobs.JobListeners.waitAndSendEvents(JobListeners.java:120)
+	at org.eclipse.core.internal.jobs.JobManager.startJob(JobManager.java:1787)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+
+"Worker-22" prio=5 Id=338 TIMED_WAITING on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at org.eclipse.core.internal.jobs.WorkerPool.sleep(WorkerPool.java:200)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+
+"Worker-26" prio=5 Id=358 TIMED_WAITING on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at org.eclipse.core.internal.jobs.WorkerPool.sleep(WorkerPool.java:200)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+
+"Worker-27" prio=5 Id=360 TIMED_WAITING on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at org.eclipse.core.internal.jobs.WorkerPool.sleep(WorkerPool.java:200)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+
+"Worker-28" prio=5 Id=372 TIMED_WAITING on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at org.eclipse.core.internal.jobs.WorkerPool.sleep(WorkerPool.java:200)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+
+"Worker-29" prio=5 Id=374 TIMED_WAITING on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at org.eclipse.core.internal.jobs.WorkerPool.sleep(WorkerPool.java:200)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+
+"Worker-30" prio=5 Id=375 TIMED_WAITING on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait0(Native Method)
+	-  waiting on org.eclipse.core.internal.jobs.WorkerPool@d96787e
+	at java.base@21.0.3/java.lang.Object.wait(Object.java:366)
+	at org.eclipse.core.internal.jobs.WorkerPool.sleep(WorkerPool.java:200)
+	at org.eclipse.core.internal.jobs.WorkerPool.startJob(WorkerPool.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+
+
+!SESSION 2025-05-17 15:26:14.296 -----------------------------------------------
+eclipse.buildId=Version 1.18.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ru_RU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-05-17 15:26:41.341
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-05-17 15:26:41.349
+!MESSAGE Log4j2 initialized with config file C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-05-17 15:27:34.364
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-05-17 15:28:32.346
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/openstlinux/updatesite1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-05-17 15:28:33.003
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/updatesite1.

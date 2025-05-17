@@ -50,7 +50,7 @@ TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-char trans_str[64] = {0,};
+/*char trans_str[64] = {0,};
 ust adc_value = 0;
 ust dac_value = 0;
 byte end_transmit = 0;
@@ -58,8 +58,8 @@ byte k = 0;
 byte n = 0;
 byte times = 1;
 uint32_t all = 0;
-ust adc_array[100];
-byte i = 0;
+ust adc_array[1000];
+ust i = 0;
 byte m = 0;
 ust amplitude = 0;
 ust max = 0;
@@ -67,7 +67,28 @@ byte period = 1;
 byte flag_const = 0;
 
 uint32_t all_setup = 0;
-byte setup_period = 1;
+byte setup_period = 5;
+*/
+
+//второе задание
+
+const float pi = 3.1416;
+const ust amplitude = 2000;
+
+byte inc = 0;
+byte times = 1;
+byte sq = 60;
+uint32_t all = 0;
+uint32_t dac_value = 0;
+short adc_array[1000];
+byte n = 0;
+byte method = 0;
+uint32_t adc_value = 0;
+ust i = 0;
+byte calculate_flag = 0;
+double check = 0;
+
+uint32_t zeta = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -83,110 +104,173 @@ static void MX_TIM1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if (htim->Instance == TIM2){
-		if (all % times == 0 && !flag_const){//прореживание в зависимости от периода сигнала, поступающего на ADC
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-			switch(end_transmit){
-				case 0:
-					break;
-				case 1:
-					if (k == 0){
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-						k = 1;
-					}
-					else {
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-						k = 0;
-					}
-					break;
-				case 2:
-					if (k == 0){
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-						k = 1;
-					}
-					else {
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-						k = 0;
-					}
-					break;
-				case 3:
-					if (k == 0){
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-						k = 1;
-					}
-					else {
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-						k = 0;
-					}
-					break;
-				case 4:
-					if (k == 0){
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-						k = 1;
-					}
-					else {
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-						HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-						k = 0;
-					}
-					break;
-			}
-		}
-		else if (flag_const) {
-			switch(end_transmit){
-				case 0:
-					break;
-				case 1:
+
+//возведение в степень
+double raiseToPow(double x, int power)
+{
+    double result;
+    result = 1.0;
+    for (byte i = 1; i <= power;i++)
+    {
+        result*=x;
+    }
+    return(result);
+}
+
+//вычисление синуса
+double sin(double x){
+	float res = x - raiseToPow(x, 3) / 6 + raiseToPow(x, 5) / 120 - raiseToPow(x, 7) / 5040;
+	return res;
+}
+
+//моргание светодиодами для первого задания
+/*
+int take_gpio(){
+	if (all % times == 0 && !flag_const){//прореживание в зависимости от периода сигнала, поступающего на ADC
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+		switch(end_transmit){
+			case 0:
+				break;
+			case 1:
+				if (k == 0){
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+					k = 1;
+				}
+				else {
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-					break;
-				case 2:
+					k = 0;
+				}
+				break;
+			case 2:
+				if (k == 0){
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+					k = 1;
+				}
+				else {
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-					break;
-				case 3:
+					k = 0;
+				}
+				break;
+			case 3:
+				if (k == 0){
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+					k = 1;
+				}
+				else {
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-					break;
-				case 4:
+					k = 0;
+				}
+				break;
+			case 4:
+				if (k == 0){
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+					k = 1;
+				}
+				else {
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-					break;
-			}
+					k = 0;
+				}
+				break;
 		}
-		all++;
+	}
+	else if (flag_const) {
+		switch(end_transmit){
+			case 0:
+				break;
+			case 1:
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+				break;
+			case 2:
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				break;
+			case 3:
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+				break;
+			case 4:
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+				break;
+		}
+	}
+	all++;
+	return 0;
+}
+
+//установка значений на ЦАП для первого задания
+int take_dac_1(){
+	if (all_setup % setup_period == 0){
+		HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
+		HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac_value);
+		if (n == 0){	//производство переменного сигнала
+			dac_value = 3500;
+			n = 1;
+		}
+		else{
+			dac_value = 0;
+			n = 0;
+		}
+	}
+	all_setup++;
+	return 0;
+}*/
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if (htim->Instance == TIM2){
+		zeta++;
 	}
 	if (htim->Instance == TIM1){
-		if (all_setup % setup_period == 0){
+		if (all % times == 0){
+			switch(method){
+				//синус
+				case 0:
+					if (inc == 120) inc = 0;	//проверка, что прошел полный оборот
+					double x = (inc * pi) / 60;
+					dac_value = amplitude + (amplitude * sin(x)) / 1;
+					inc++;
+					break;
+				//меандр
+				case 1:
+					if (all % sq == 0){	//прореживание для совпадения периодов синусоиды и меандра
+						if (n == 0){
+							dac_value = 3000;//amplitude;
+							n = 1;
+						}
+						else if (n == 1){
+							dac_value = 0;
+							n = 0;
+						}
+					}
+					break;
+				//постоянка
+				case 2:
+					dac_value = amplitude;
+					break;
+			}
 			HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
 			HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac_value);
-			if (n == 0){	//производство переменного сигнала
-				dac_value = 3500;
-				n = 1;
-			}
-			else{
-				dac_value = 0;
-				n = 0;
-			}
 		}
-		all_setup++;
+		all++; //счетчик для прореживания
+
 	}
 }
 /* USER CODE END 0 */
@@ -233,9 +317,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
-	  //HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac_value);
-	  HAL_ADC_Start(&hadc1);
+	  //код для первого задания
+	  /*HAL_ADC_Start(&hadc1);
 	  HAL_ADC_PollForConversion(&hadc1, 100);
 	  adc_value = HAL_ADC_GetValue(&hadc1);
 	  adc_array[i] = adc_value;
@@ -262,14 +345,19 @@ int main(void)
 		  times = period;
 		  i = 0;
 	  }
-	  //snprintf(trans_str, 63, "ADC %d\n", adc_value);
-	  //HAL_UART_Transmit_IT(&huart1, (uint8_t*)trans_str, strlen(trans_str));
-	  //end_transmit = 0;
 	  if (amplitude > 0 && amplitude <= 1000) end_transmit = 1;
 	  else if (amplitude > 1000 && amplitude <= 2000) end_transmit = 2;
 	  else if (amplitude > 2000 && amplitude <= 3000) end_transmit = 3;
 	  else if (amplitude > 3000 && amplitude <= 4000) end_transmit = 4;
+	  HAL_Delay(10);*/
+	  HAL_ADC_Start(&hadc1);
+	  HAL_ADC_PollForConversion(&hadc1, 100);
+	  adc_value = HAL_ADC_GetValue(&hadc1);
+	  adc_array[i] = adc_value;
+	  i++;
+	  if (i == 1000)i = 0;
 	  HAL_Delay(10);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
