@@ -1882,3 +1882,379 @@ Finished building: study_stm_1.hex
 Finished building: study_stm_1.bin
  
  
+22:49:57 **** Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f3xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f3xx_it.d" -MT"Core/Src/stm32f3xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f3xx_it.o"
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:240:43: error: assignment of read-only variable 'amplitude'
+  240 |            if(amplitude == 2000)amplitude = 0;
+      |                                           ^
+../Core/Src/main.c:241:22: error: assignment of read-only variable 'amplitude'
+  241 |            amplitude += 100;
+      |                      ^~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j2 all" terminated with exit code 2. Build might be incomplete.
+22:50:49 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20696	     16	   3848	  24560	   5ff0	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.hex
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.bin
+ 
+Finished building: study_stm_1.list
+ 
+22:53:22 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-size  study_stm_1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20696	     16	   3848	  24560	   5ff0	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+22:54:51 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-size  study_stm_1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20696	     16	   3848	  24560	   5ff0	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+08:55:32 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-size  study_stm_1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20696	     16	   3848	  24560	   5ff0	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+09:01:49 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20696	     16	   3848	  24560	   5ff0	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.hex
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.list
+Finished building: study_stm_1.bin
+ 
+ 
+09:04:04 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20696	     16	   3848	  24560	   5ff0	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.hex
+ 
+Finished building: study_stm_1.bin
+ 
+09:49:42 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20988	     16	   3848	  24852	   6114	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.hex
+Finished building: study_stm_1.list
+ 
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.bin
+ 
+09:52:22 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20988	     16	   3848	  24852	   6114	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+Finished building: study_stm_1.hex
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+ 
+Finished building: study_stm_1.bin
+ 
+09:55:02 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20988	     16	   3848	  24852	   6114	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.hex
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.bin
+Finished building: study_stm_1.list
+ 
+ 
+11:28:51 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20988	     16	   3848	  24852	   6114	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.hex
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.bin
+ 
+Finished building: study_stm_1.list
+ 
+11:38:15 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  21020	     16	   3848	  24884	   6134	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+Finished building: study_stm_1.hex
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+ 
+Finished building: study_stm_1.bin
+ 
+11:41:53 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20996	     16	   3848	  24860	   611c	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+Finished building: study_stm_1.hex
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+ 
+Finished building: study_stm_1.bin
+ 
+11:55:07 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20996	     16	   3848	  24860	   611c	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.hex
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.bin
+ 
+Finished building: study_stm_1.list
+ 
+12:00:18 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  20996	     16	   3848	  24860	   611c	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+Finished building: study_stm_1.hex
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+ 
+Finished building: study_stm_1.bin
+ 
+15:18:41 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f3xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f3xx_hal_msp.d" -MT"Core/Src/stm32f3xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f3xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f3xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f3xx_it.d" -MT"Core/Src/stm32f3xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f3xx_it.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  21400	     16	   3920	  25336	   62f8	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.hex
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.bin
+ 
+Finished building: study_stm_1.list
+ 
+15:29:20 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  21388	     16	   3920	  25324	   62ec	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.hex
+Finished building: study_stm_1.bin
+ 
+ 
+15:45:07 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  21388	     16	   3920	  25324	   62ec	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.hex
+ 
+Finished building: study_stm_1.bin
+ 
+16:02:46 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  21400	     16	   3928	  25344	   6300	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+Finished building: study_stm_1.hex
+ 
+Finished building: study_stm_1.bin
+ 
+16:11:30 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  21436	     16	   3928	  25380	   6324	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+Finished building: study_stm_1.hex
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+ 
+Finished building: study_stm_1.bin
+ 
+16:25:26 **** Incremental Build of configuration Debug for project study_stm_1 ****
+make -j2 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "study_stm_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Program Files\STM32CubeIDE\workspace_1.18.0\study_stm\study_stm_1\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="study_stm_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: study_stm_1.elf
+ 
+arm-none-eabi-size  study_stm_1.elf 
+arm-none-eabi-objdump -h -S study_stm_1.elf  > "study_stm_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  21444	     16	   3928	  25388	   632c	study_stm_1.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objcopy  -O ihex study_stm_1.elf  "study_stm_1.hex"
+Finished building: study_stm_1.list
+ 
+Finished building: study_stm_1.hex
+arm-none-eabi-objcopy  -O binary study_stm_1.elf  "study_stm_1.bin"
+ 
+Finished building: study_stm_1.bin
+ 

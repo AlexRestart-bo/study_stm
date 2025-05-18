@@ -48,6 +48,7 @@ DAC_HandleTypeDef hdac1;
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
 /*char trans_str[64] = {0,};
@@ -73,20 +74,24 @@ byte setup_period = 5;
 //второе задание
 
 const float pi = 3.1416;
-const ust amplitude = 2000;
 
+ust amplitude = 0;//2000;
 byte inc = 0;
 byte times = 1;
 byte sq = 60;
-uint32_t all = 0;
+unsigned long all = 0;
+unsigned long all_gen = 0;
 uint32_t dac_value = 0;
 short adc_array[1000];
 byte n = 0;
-byte method = 0;
+byte method = 1;
 uint32_t adc_value = 0;
 ust i = 0;
 byte calculate_flag = 0;
 double check = 0;
+byte amp_up_flag = 0;
+byte freq_up_flag = 0;
+uint32_t dr = 0;
 
 uint32_t zeta = 0;
 /* USER CODE END PV */
@@ -98,6 +103,7 @@ static void MX_DAC1_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM1_Init(void);
+static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -233,26 +239,67 @@ int take_dac_1(){
 	all_setup++;
 	return 0;
 }*/
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+   if(GPIO_Pin == GPIO_PIN_9) // если прерывание поступило от ножки PA9
+   {
+       if(freq_up_flag == 1){
+    	   if (method == 3) method = 1;
+    	   else method++;
+       }
+       else {
+	       HAL_NVIC_DisableIRQ(EXTI9_5_IRQn); // сразу же отключаем прерывания на этом пине
+		   if(amplitude == 2000)amplitude = 0;
+		   amplitude += 100;
+	       amp_up_flag = 1;
+	       HAL_TIM_Base_Start_IT(&htim2); // запускаем таймер
+       }
+   }
+   if(GPIO_Pin == GPIO_PIN_10){
+	   if(amp_up_flag == 1){
+		   if (method == 3) method = 1;
+	       else method++;
+	   }
+	   else {
+	       HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+		   if (times == 10) times = 0;
+		   times += 1;
+		   freq_up_flag = 1;
+	       HAL_TIM_Base_Start_IT(&htim4);
+	   }
+   }
+}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if (htim->Instance == TIM4){
+	    HAL_TIM_Base_Stop_IT(&htim4); // останавливаем таймер
+	    __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
+	    NVIC_ClearPendingIRQ(EXTI15_10_IRQn);
+	    HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+		freq_up_flag = 0;
+	}
 	if (htim->Instance == TIM2){
-		zeta++;
+	    HAL_TIM_Base_Stop_IT(&htim2); // останавливаем таймер
+	    __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);  // очищаем бит EXTI_PR (бит прерывания)
+	    NVIC_ClearPendingIRQ(EXTI9_5_IRQn); // очищаем бит NVIC_ICPRx (бит очереди)
+	    HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);   // включаем внешнее прерывание
+	    amp_up_flag = 0;
 	}
 	if (htim->Instance == TIM1){
-		if (all % times == 0){
+		if (all_gen % times == 0){
 			switch(method){
 				//синус
-				case 0:
+				case 1:
 					if (inc == 120) inc = 0;	//проверка, что прошел полный оборот
 					double x = (inc * pi) / 60;
 					dac_value = amplitude + (amplitude * sin(x)) / 1;
 					inc++;
 					break;
 				//меандр
-				case 1:
+				case 2:
 					if (all % sq == 0){	//прореживание для совпадения периодов синусоиды и меандра
 						if (n == 0){
-							dac_value = 3000;//amplitude;
+							dac_value = 2*amplitude;
 							n = 1;
 						}
 						else if (n == 1){
@@ -262,14 +309,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 					}
 					break;
 				//постоянка
-				case 2:
+				case 3:
 					dac_value = amplitude;
 					break;
 			}
 			HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
 			HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac_value);
+			all++;
 		}
-		all++; //счетчик для прореживания
+		all_gen++; //счетчик для прореживания
 
 	}
 }
@@ -308,8 +356,8 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM2_Init();
   MX_TIM1_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim1);
   /* USER CODE END 2 */
 
@@ -356,7 +404,7 @@ int main(void)
 	  adc_array[i] = adc_value;
 	  i++;
 	  if (i == 1000)i = 0;
-	  HAL_Delay(10);
+	  HAL_Delay(5);
 
     /* USER CODE END WHILE */
 
@@ -404,10 +452,11 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_TIM1|RCC_PERIPHCLK_ADC12
-                              |RCC_PERIPHCLK_TIM2;
+                              |RCC_PERIPHCLK_TIM2|RCC_PERIPHCLK_TIM34;
   PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV2;
   PeriphClkInit.Tim1ClockSelection = RCC_TIM1CLK_HCLK;
   PeriphClkInit.Tim2ClockSelection = RCC_TIM2CLK_HCLK;
+  PeriphClkInit.Tim34ClockSelection = RCC_TIM34CLK_HCLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -539,9 +588,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 35;
+  htim1.Init.Prescaler = 7;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 10000;
+  htim1.Init.Period = 500;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -586,9 +635,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 72;
+  htim2.Init.Prescaler = 359;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 20000;
+  htim2.Init.Period = 6000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -613,6 +662,51 @@ static void MX_TIM2_Init(void)
 }
 
 /**
+  * @brief TIM4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM4_Init(void)
+{
+
+  /* USER CODE BEGIN TIM4_Init 0 */
+
+  /* USER CODE END TIM4_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM4_Init 1 */
+
+  /* USER CODE END TIM4_Init 1 */
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 359;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 6000;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM4_Init 2 */
+
+  /* USER CODE END TIM4_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -625,20 +719,17 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA2 PA5 PA6 PA7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  /*Configure GPIO pins : PA9 PA10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PB6 */
@@ -647,6 +738,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
